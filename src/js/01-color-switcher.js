@@ -24,6 +24,6 @@ function onChangeBgColor(event) {
 function onStopChangeBgColor() {
     btnStartEl.disabled = false;
     btnStopEl.disabled = true;
-    clearTimeout(timerId);
+    clearInterval(timerId);
 }
 
