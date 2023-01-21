@@ -10,7 +10,7 @@ const btnStopEl = document.querySelector(`button[data-stop]`);
 btnStartEl.addEventListener("click", onChangeBgColor);
 btnStopEl.addEventListener("click", onStopChangeBgColor)
 btnStopEl.disabled = true;
-
+let timerId = null
 
 function onChangeBgColor(event) {
     btnStartEl.disabled = true;
@@ -26,4 +26,5 @@ function onStopChangeBgColor() {
     clearInterval(timerId);
     return
 }
+
 
