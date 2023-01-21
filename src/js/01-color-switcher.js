@@ -15,7 +15,7 @@ btnStopEl.disabled = true;
 function onChangeBgColor(event) {
     btnStartEl.disabled = true;
     btnStopEl.disabled = false;
-    const timerId = setInterval(() => {
+    timerId = setInterval(() => {
      document.body.style.backgroundColor = getRandomHexColor()
   }, 1000);
 }
@@ -24,5 +24,6 @@ function onStopChangeBgColor() {
     btnStartEl.disabled = false;
     btnStopEl.disabled = true;
     clearInterval(timerId);
+    return
 }
 
