@@ -8,45 +8,38 @@ btnStart.disabled = true;
 
 let active = false;
 
-const time = new flatpickr("#datetime-picker", options = {
+const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  
   onClose(selectedDates) {
-    const timeСalendar = selectedDates[0].getTime();
-    const timerId = setInterval(() => {
-
-    const timeNow = Date.now();
-
-      if (timeNow > timeСalendar) {
-        alert("Please choose a date in the future");
-        btnStart.disabled = true;
-        clearInterval(timerId);
-        return
-      }
-      btnStart.disabled = false;
-      
-      const differenceTime = timeСalendar - timeNow;
-      const timerTime = convertMs(differenceTime);
-      if(active) {
-        onOpenTimer(time.close());
-        updateTime(timerTime);   
-      } 
-      
-    }, 1000)
+      if (selectedDates[0] < options.defaultDate) {
+        alert("Please choose a date in the future"); 
+      } else {
+          options.defaultDate = selectedDates[0];
+          btnStart.removeAttribute("disabled");
+    }
   },
-});
+};
+
+const time = new flatpickr("#datetime-picker" , options);
 
 
 btnStart.addEventListener("click", onOpenTimer);
  
-function onOpenTimer(t) {
+function onOpenTimer() {
   active = true
   if (active) {
-  time.close();
-     }
+     const timerId = setInterval(() => {
+     time.close();
+    const dateNow = Date.now()
+    const value = options.defaultDate.getTime() - dateNow;
+
+     const elemTime = convertMs(value);
+       updateTime(elemTime);
+     }, 1000)
+    }
 }
 
 function updateTime({ days, hours, minutes, seconds } = {}) {
@@ -74,3 +67,4 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
+

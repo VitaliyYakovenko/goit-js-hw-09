@@ -20,7 +20,14 @@ img {
 }
 
 
+.timer {
+  display: flex;
 
+}
+
+.field {
+  margin-right: 10px;
+}
 
 
 
