@@ -42,6 +42,13 @@ function onOpenTimer() {
     }
 }
 
+function updateTime({ days, hours, minutes, seconds } = {}) {
+  timeElems[0].textContent = days;
+  timeElems[1].textContent = hours;
+  timeElems[2].textContent = minutes;
+  timeElems[3].textContent = seconds;
+}
+
 
 function addLeadingZero(value) {
   return String(value).padStart(2, "0");
@@ -61,10 +68,3 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-
-function updateTime({ days, hours, minutes, seconds } = {}) {
-  timeElems[0].textContent = days;
-  timeElems[1].textContent = hours;
-  timeElems[2].textContent = minutes;
-  timeElems[3].textContent = seconds;
-}
