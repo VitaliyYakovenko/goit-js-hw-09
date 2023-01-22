@@ -5,7 +5,7 @@ import "flatpickr/dist/flatpickr.min.css";
 const timeElems = document.querySelectorAll(".value");
 const btnStart = document.querySelector("button[data-start]");
 btnStart.disabled = true;
-
+let timerId = null;
 let active = false;
 
 const options = {
@@ -29,17 +29,31 @@ const time = new flatpickr("#datetime-picker" , options);
 btnStart.addEventListener("click", onOpenTimer);
  
 function onOpenTimer() {
-  active = true
-  if (active) {
-     const timerId = setInterval(() => {
-     time.close();
-    const dateNow = Date.now()
-    const value = options.defaultDate.getTime() - dateNow;
+  active = true;
 
-     const elemTime = convertMs(value);
-       updateTime(elemTime);
-     }, 1000)
-    }
+  if (active) {
+    timerId = setInterval(() => {
+      time.close();
+      const dateNow = Date.now()
+      const value = options.defaultDate.getTime() - dateNow;
+
+      const elemTime = convertMs(value);
+      
+      updateTime(elemTime);
+      
+      if (value < 0) {
+        clearInterval(timerId);
+        timeElems[0].textContent = "00";
+        timeElems[1].textContent = "00";
+        timeElems[2].textContent = "00";
+        timeElems[3].textContent = "00";
+        return;
+      }
+    }, 1000);
+  } 
+  
+  
+
 }
 
 function updateTime({ days, hours, minutes, seconds } = {}) {

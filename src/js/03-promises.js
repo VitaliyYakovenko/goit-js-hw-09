@@ -10,7 +10,7 @@ const inpAmount = document.querySelector("input[name=amount]")
 const dataPromise = [{ position: 0, delay: 0, }];
 
 formEl.addEventListener("submit", (event) => {
-  event.preventDefault()
+  event.preventDefault();
 
   const amount = +inpAmount.value;
   let delayMs = +inpDelay.value;
@@ -32,6 +32,7 @@ formEl.addEventListener("submit", (event) => {
   });
 
   }
+  event.target.reset();
 })
 
 function createPromise(position, delay) {
